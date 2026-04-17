@@ -10,13 +10,13 @@
 //! - Automatic retries with exponential backoff
 //! - User-Agent header injection
 //! - Concurrency limiting
-//! - **Transparent response decompression** (gzip, brotli, deflate)
+//! - **Transparent response decompression** (gzip, deflate)
 //! - Optional OpenTelemetry tracing (feature-gated)
 //!
 //! # Transparent Decompression
 //!
 //! The client automatically:
-//! - Sends `Accept-Encoding: gzip, br, deflate` header on all requests
+//! - Sends `Accept-Encoding: gzip, deflate` header on all requests
 //! - Decompresses response bodies based on `Content-Encoding` header
 //! - Applies body size limits to **decompressed** bytes (protecting against zip bombs)
 //!

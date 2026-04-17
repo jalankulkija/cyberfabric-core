@@ -51,7 +51,7 @@ pin-project-lite = { workspace = true }
 futures = { workspace = true }
 bytes = { workspace = true }
 regex = { workspace = true }
-multer = "3.1"
+multer = { workspace = true }
 
 # Encoding
 base64 = { workspace = true }
@@ -86,7 +86,7 @@ opentelemetry = { workspace = true }
 
 # Local dependencies
 modkit = { workspace = true }
-modkit-db = { workspace = true, features = ["sqlite", "pg", "preview-outbox"] }
+modkit-db = { workspace = true, features = ["pg", "preview-outbox"] }
 modkit-db-macros = { workspace = true }
 modkit-security = { workspace = true }
 modkit-macros = { workspace = true }
@@ -102,5 +102,6 @@ k8s-openapi = { workspace = true, features = ["latest"], optional = true }
 chrono = { workspace = true }
 opentelemetry_sdk = { workspace = true, features = ["testing"] }
 temp-env = { workspace = true }
+modkit-db = { workspace = true, features = ["sqlite"] }
 
 

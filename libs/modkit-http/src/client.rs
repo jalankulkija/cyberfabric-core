@@ -1302,7 +1302,7 @@ mod tests {
 
     /// Test that Accept-Encoding header is automatically set by the client.
     ///
-    /// The `DecompressionLayer` automatically adds `Accept-Encoding: gzip, br, deflate`
+    /// The `DecompressionLayer` automatically adds `Accept-Encoding: gzip, deflate`
     /// to outgoing requests.
     #[tokio::test]
     async fn test_accept_encoding_header_sent() {

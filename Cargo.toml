@@ -252,7 +252,7 @@ grpc_hub = { package = "cf-grpc-hub", version = "0.1.19", path = "modules/system
 # Serialization
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-serde-saphyr = "0.0.16"
+serde-saphyr = "0.0.10"
 secrecy = { version = "0.10", features = ["serde"] }
 serde_urlencoded = "0.7"
 schemars = { version = "1.2", features = ["derive", "uuid1"] }
@@ -262,7 +262,18 @@ anyhow = "1.0"
 thiserror = "2.0"
 
 # Async runtime
-tokio = { version = "1.47", features = ["full"] }
+tokio = { version = "1.47", features = [
+    "rt",
+    "rt-multi-thread",
+    "sync",
+    "time",
+    "macros",
+    "io-util",
+    "fs",
+    "signal",
+    "process",
+    "net",
+] }
 tokio-util = { version = "0.7", features = ["rt"] }
 tokio-stream = { version = "0.1", features = ["sync", "net"] }
 futures = "0.3"
@@ -275,7 +286,9 @@ arc-swap = "1.7"
 
 # Security
 zeroize = { version = "1", features = ["derive"] }
-aliri_tokens = { version = "0.3", default-features = false, features = ["rand"] }
+aliri_tokens = { version = "0.3", default-features = false, features = [
+    "rand",
+] }
 aliri_clock = "0.1"
 
 # Logging
@@ -292,7 +305,11 @@ tracing-error = "0.2"
 tracing-appender = "0.2"
 tracing-test = "0.2"
 opentelemetry = { version = "0.31", features = ["trace", "metrics"] }
-opentelemetry_sdk = { version = "0.31", features = ["trace", "rt-tokio", "metrics"] }
+opentelemetry_sdk = { version = "0.31", features = [
+    "trace",
+    "rt-tokio",
+    "metrics",
+] }
 opentelemetry-otlp = { version = "0.31", features = [
     "grpc-tonic",
     "http-proto",
@@ -309,7 +326,6 @@ tower-http = { version = "0.6", features = [
     "util",
     "timeout",
     "decompression-gzip",
-    "decompression-br",
     "decompression-deflate",
     "follow-redirect",
     "catch-panic",
@@ -336,16 +352,23 @@ hyper-rustls = { version = "0.27", default-features = false, features = [
     "native-tokio",
     "webpki-tokio",
 ] }
-rustls = { version = "0.23", default-features = false, features = ["aws_lc_rs", "std", "tls12"] }
+rustls = { version = "0.23", default-features = false, features = [
+    "aws_lc_rs",
+    "std",
+    "tls12",
+] }
 rustls-native-certs = "0.8"
 rustls-pki-types = "1"
-tokio-rustls = { version = "0.26", default-features = false, features = ["aws-lc-rs"] }
-rcgen = { version = "0.13", default-features = false, features = ["aws_lc_rs", "pem"] }
+tokio-rustls = { version = "0.26", default-features = false, features = [
+    "aws-lc-rs",
+] }
+rcgen = { version = "0.13", default-features = false, features = [
+    "aws_lc_rs",
+    "pem",
+] }
 http-body-util = "0.1"
 http-body = "1"
 
-# HTTP client (default-tls = rustls + aws-lc-rs in 0.13)
-reqwest = { version = "0.13", features = ["stream"] }
 rand = "0.9"
 
 # Synchronous locks for better performance
@@ -378,7 +401,10 @@ sea-orm-migration = { version = "1.1", default-features = false, features = [
 # sqlx: TLS via aws-lc-rs; runtime-tokio for async.  This is the sole TLS entry
 # point for the DB stack -- sea-orm/sea-orm-migration intentionally use runtime-tokio
 # (not runtime-tokio-rustls) to avoid pulling in ring.
-sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "tls-rustls-aws-lc-rs"] }
+sqlx = { version = "0.8", default-features = false, features = [
+    "runtime-tokio",
+    "tls-rustls-aws-lc-rs",
+] }
 
 xxhash-rust = { version = "0.8", features = ["xxh3"] }
 
@@ -429,7 +455,10 @@ sha2 = "0.10"
 hex = "0.4"
 
 # JWT and authentication
-jsonwebtoken = { version = "10.3", default-features = false, features = ["aws_lc_rs", "use_pem"] }
+jsonwebtoken = { version = "10.3", default-features = false, features = [
+    "aws_lc_rs",
+    "use_pem",
+] }
 
 # Configuration management
 figment = { version = "0.10", features = ["yaml", "env"] }
@@ -456,7 +485,12 @@ nvml-wrapper = "0.11"
 psl = "2"
 
 # Image processing (thumbnail generation)
-image = { version = "0.25", default-features = false, features = ["jpeg", "png", "gif", "webp"] }
+image = { version = "0.25", default-features = false, features = [
+    "jpeg",
+    "png",
+    "gif",
+    "webp",
+] }
 
 # Text processing
 base64 = "0.22"
@@ -484,8 +518,14 @@ proc-macro-error2 = "2.0"
 # Testing utilities
 trybuild = "1"
 criterion = { version = "0.5", default-features = false }
-testcontainers = { version = "0.27", default-features = false, features = ["aws-lc-rs"] }
-testcontainers-modules = { version = "0.15", default-features = false, features = ["aws-lc-rs", "postgres", "mysql"] }
+testcontainers = { version = "0.27", default-features = false, features = [
+    "aws-lc-rs",
+] }
+testcontainers-modules = { version = "0.15", default-features = false, features = [
+    "aws-lc-rs",
+    "postgres",
+    "mysql",
+] }
 httpmock = "0.8"
 flate2 = "1"
 
@@ -497,12 +537,13 @@ pin-project-lite = "0.2"
 # HTTP types and web utilities
 http = "1.3"
 httpdate = "1"
-matchit = "0.9"
+matchit = "=0.8.4"
 
 # Document and file handling
 rust-embed = "8"
 bytes = "1.11"
 mime = "0.3"
+multer = "3.1"
 
 # Document parsing libraries
 tl = "0.7"

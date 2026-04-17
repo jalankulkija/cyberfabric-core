@@ -48,7 +48,7 @@ fn parse_http_date(value: &str) -> Option<Duration> {
 
 /// Type alias for the boxed response body that supports decompression.
 ///
-/// This type can hold either a raw body or a decompressed body (gzip/br/deflate).
+/// This type can hold either a raw body or a decompressed body (gzip/deflate).
 /// The body is type-erased to allow the decompression layer to work transparently.
 pub type ResponseBody =
     http_body_util::combinators::BoxBody<Bytes, Box<dyn std::error::Error + Send + Sync>>;

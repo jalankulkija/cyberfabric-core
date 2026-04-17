@@ -11,7 +11,7 @@ HTTP client library for ModKit, built on hyper and tower.
 - User-Agent header injection
 - Concurrency limiting with fail-fast load shedding
 - Response body size limits (applied after decompression)
-- **Transparent response decompression** (gzip, brotli, deflate)
+- **Transparent response decompression** (gzip, deflate)
 - **Secure redirect following** with SSRF protection and credential leakage prevention
 
 ## What it does NOT do
@@ -71,7 +71,7 @@ let token: TokenResponse = client
 
 The client automatically handles compressed responses:
 
-- **Sends `Accept-Encoding: gzip, br, deflate`** on all requests
+- **Sends `Accept-Encoding: gzip, deflate`** on all requests
 - **Decompresses response bodies** based on `Content-Encoding` header
 - **Body size limit applies to decompressed bytes**, protecting against "zip bombs"
 
