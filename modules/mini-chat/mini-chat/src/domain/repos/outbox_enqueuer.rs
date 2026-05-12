@@ -24,6 +24,19 @@ pub struct AttachmentCleanupEvent {
     pub storage_backend: String,
     pub attachment_kind: String,
     pub deleted_at: OffsetDateTime,
+    /// `Some` when the chat performed a secondary upload that succeeded
+    /// (`secondary_status = uploaded`). The cleanup worker uses this to
+    /// issue a provider-specific `DELETE` after the primary delete succeeds.
+    #[serde(default)]
+    pub secondary_file_id: Option<String>,
+    /// Which provider's id is in `secondary_file_id` (e.g. `"anthropic"`).
+    /// Set together with `secondary_file_id`.
+    #[serde(default)]
+    pub secondary_provider_kind: Option<String>,
+    /// OAGW upstream alias for the secondary provider. Set together with
+    /// `secondary_file_id` (all three `Some` or all `None`).
+    #[serde(default)]
+    pub secondary_upstream_alias: Option<String>,
 }
 
 /// Why provider cleanup was triggered.
@@ -63,6 +76,13 @@ pub struct ChatCleanupEvent {
     pub system_request_id: Uuid,
     #[serde(with = "time::serde::rfc3339")]
     pub chat_deleted_at: OffsetDateTime,
+    /// OAGW upstream alias for the chat's secondary-upload provider, when
+    /// the chat is backed by one (e.g. Anthropic) and at least one
+    /// attachment may have a secondary file id to clean up. `None` for
+    /// chats without a secondary provider. Resolved at chat-delete time so
+    /// the handler doesn't need a `ProviderResolver` dependency.
+    #[serde(default)]
+    pub secondary_upstream_alias: Option<String>,
 }
 
 /// Durable outbox payload for thread summary generation.

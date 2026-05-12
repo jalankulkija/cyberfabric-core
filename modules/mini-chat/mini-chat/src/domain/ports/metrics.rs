@@ -198,6 +198,18 @@ pub trait MiniChatMetricsPort: Send + Sync {
 
     /// `{prefix}_code_interpreter_calls` — counter
     fn record_code_interpreter_calls(&self, model: &str, count: u32);
+
+    // ── P1: Knowledge Search (3 metrics) ─────────────────────────────
+
+    /// `{prefix}_knowledge_search_total` — counter
+    /// `result`: `ok`, `error`
+    fn record_knowledge_search(&self, result: &str);
+
+    /// `{prefix}_knowledge_search_latency_ms` — histogram
+    fn record_knowledge_search_latency_ms(&self, ms: f64);
+
+    /// `{prefix}_knowledge_search_chunks` — histogram (chunks returned per call)
+    fn record_knowledge_search_chunks(&self, count: f64);
 }
 
 /// No-op implementation for use in tests or when metrics are disabled.
@@ -248,4 +260,7 @@ impl MiniChatMetricsPort for NoopMetrics {
     fn record_thread_summary_execution(&self, _: &str) {}
     fn record_thread_summary_cas_conflict(&self) {}
     fn record_summary_fallback(&self) {}
+    fn record_knowledge_search(&self, _: &str) {}
+    fn record_knowledge_search_latency_ms(&self, _: f64) {}
+    fn record_knowledge_search_chunks(&self, _: f64) {}
 }

@@ -14,7 +14,7 @@ mod vector_store_repo;
 
 pub(crate) use attachment_repo::{
     AttachmentRepository, InsertAttachmentParams, SetFailedParams, SetReadyParams,
-    SetUploadedParams,
+    SetSecondaryUploadParams, SetUploadedParams,
 };
 pub(crate) use chat_repo::ChatRepository;
 pub(crate) use message_attachment_repo::{
